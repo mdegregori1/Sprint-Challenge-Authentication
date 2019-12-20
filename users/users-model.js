@@ -2,15 +2,11 @@ const db = require("../database//dbConfig.js");
 
 module.exports = {
     add,
-    find,
-    findBy,
-    findById,
+    findBy
+
   };
   
-  function find() {
-    return db("users").select("id", "username");
-  }
-  
+ 
   function findBy(filter) {
     return db("users")
       .select("id", "username", "password") // make sure to return the password
@@ -19,18 +15,11 @@ module.exports = {
   
   function add(user) {
     //   console.log('user',user)
-    return db("users")
-      .insert(user)
+    return db("users").insert(user)
       .then(ids => {
-        const [id] = ids;
-        return findById(id);
+        return db('users').where({id: ids[0]}).first()
       });
   }
-  
-  function findById(id) {
-    return db("users")
-      .select("id", "username")
-      .where({ id })
-      .first();
-  }
-  
+
+
+

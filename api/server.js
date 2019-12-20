@@ -5,8 +5,12 @@ const helmet = require('helmet');
 const authenticate = require('../auth/authenticate-middleware.js');
 const authRouter = require('../auth/auth-router.js');
 const jokesRouter = require('../jokes/jokes-router.js');
+const configureMiddleware = require('./configure-middleware.js');
 
 const server = express();
+
+configureMiddleware(server);
+
 
 server.use(helmet());
 server.use(cors());
@@ -20,3 +24,7 @@ server.get('/', (req, res) => {
   });
 
 module.exports = server;
+
+
+
+
